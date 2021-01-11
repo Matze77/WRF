@@ -582,7 +582,7 @@ CONTAINS
 !  here we initialize data that currently is not initialized
 !  in the input data
 
-    DO j = jts, jte
+    DO j = jts, min(jde-1,jte)
       DO i = its, ite
          grid%msftx(i,j)    = 1.
          grid%msfty(i,j)    = 1.
