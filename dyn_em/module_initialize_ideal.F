@@ -136,6 +136,9 @@ CONTAINS
 
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
 
+   INTEGER :: state_size
+   INTEGER, ALLOCATABLE, DIMENSION(:) :: state
+
    SELECT CASE ( model_data_order )
          CASE ( DATA_ORDER_ZXY )
    kds = grid%sd31 ; kde = grid%ed31 ;
@@ -1374,6 +1377,11 @@ CONTAINS
 ! For LES, change the initial random perturbations
 ! For 2D test, call randx outside I-loop
 ! For 3D runs, call randx inside both I-J loops
+
+  call random_seed( size=state_size )
+  allocate(state(state_size))
+  state = 20180815
+  CALL RANDOM_SEED(put=state)
 
   DO J = jts, min(jde-1,jte)
 !   yrad = config_flags%dy*float(j-nyc)/10000.
